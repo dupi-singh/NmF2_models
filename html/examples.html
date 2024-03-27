@@ -1,0 +1,270 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>examples</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-10-26"><meta name="DC.source" content="examples.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Example 1</a></li><li><a href="#3">Example 2</a></li><li><a href="#4">Example 3</a></li><li><a href="#5">Example 4</a></li></ul></div><pre class="codeinput"><span class="comment">% examples</span>
+</pre><h2 id="2">Example 1</h2><p>Reproduce 2011 NmF2 over JICA</p><pre class="codeinput">station_name=<span class="string">'JICA'</span>;
+sdate = datetime([2011 1 1 0 0 0]);
+edate = datetime([2011 12 31 23 0 0]);
+time = (sdate:hours(1):edate)';
+time = reshape(time,24,[]);
+[fof2,nmf2] = call_nmf2(station_name,time);
+figure(<span class="string">'Position'</span>,[3135 850 725 309]);
+contourf(nmf2,30,<span class="string">'LineStyle'</span>,<span class="string">'none'</span>)
+colormap <span class="string">jet</span>
+colorbar
+clim([.1 1.9]*10^12)
+xlabel(<span class="string">'DOY'</span>); ylabel(<span class="string">'UT'</span>);
+title([station_name,<span class="string">' NmF2, '</span>,char(sdate,<span class="string">'dd-MMM-yyyy'</span>),<span class="string">' to '</span>,char(edate,<span class="string">'dd-MMM-yyyy'</span>)])
+set(gca,<span class="string">'FontSize'</span>,14,<span class="string">'ytick'</span>,0:3:24,<span class="string">'tickdir'</span>,<span class="string">'out'</span>);
+</pre><img vspace="5" hspace="5" src="examples_01.png" alt=""> <h2 id="3">Example 2</h2><p>Reproduce 2021 NmF2 over GUAM. Also plot the f10.7 index and save model output as ASCII file Other indices can also be plotted from geoind structure</p><pre class="codeinput">station_name=<span class="string">'GUAM'</span>;
+Save_Output=1;
+out_dir = <span class="string">'output_ASCII'</span>;
+out_name = [station_name <span class="string">'.txt'</span>];
+sdate = datetime([2021 1 1 0 0 0]);
+edate = datetime([2021 12 31 23 0 0]);
+time = (sdate:hours(1):edate)';
+time = reshape(time,24,[]);
+[fof2,nmf2,geoind] = call_nmf2(station_name,time);
+figure(<span class="string">'Position'</span>,[3135 850 725 309]);
+contourf(nmf2,30,<span class="string">'LineStyle'</span>,<span class="string">'none'</span>)
+colormap <span class="string">jet</span>
+colorbar
+clim([0 15]*10^11)
+xlabel(<span class="string">'DOY'</span>); ylabel(<span class="string">'UT'</span>);
+set(gca,<span class="string">'FontSize'</span>,14,<span class="string">'ytick'</span>,0:3:24,<span class="string">'tickdir'</span>,<span class="string">'out'</span>);
+yyaxis <span class="string">right</span>
+plot(geoind.f107(1,:),<span class="string">'-k'</span>);
+ylabel(<span class="string">'F10.7 (sfu)'</span>)
+title([station_name,<span class="string">' NmF2, '</span>,char(sdate,<span class="string">'dd-MMM-yyyy'</span>),<span class="string">' to '</span>,char(edate,<span class="string">'dd-MMM-yyyy'</span>)])
+set(gca,<span class="string">'FontSize'</span>,14)
+<span class="keyword">if</span> Save_Output
+    fname = [out_dir filesep out_name];
+    data_out = table;
+    data_out.Year = time.Year(:);
+    data_out.Month = time.Month(:);
+    data_out.Day = time.Day(:);
+    data_out.Hour = time.Hour(:);
+    data_out.(<span class="string">'NmF2x10^11'</span>) = round(nmf2(:)/10^11,3);
+    data_out.foF2 = round(fof2(:),2);
+    data_out.F107 = geoind.f107(:);
+    data_out.FISM2 = round(geoind.fism2(:),4);
+    data_out.Ap3 = geoind.ap3(:);
+    <span class="keyword">if</span> ~exist(out_dir,<span class="string">'dir'</span>)
+        mkdir(out_dir)
+    <span class="keyword">end</span>
+    writetable(data_out,fname,<span class="string">'Delimiter'</span>,<span class="string">'tab'</span>)
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="examples_02.png" alt=""> <h2 id="4">Example 3</h2><p>Plot seasonal variation over JICA at fixed solar and geomagnetic activity if needed, save figure as PNG file</p><pre class="codeinput">station_name=<span class="string">'JICA'</span>;
+f107 = 70;
+ap3 = 6;
+Save_Figure = 1;
+<span class="comment">%</span>
+fism = f1072fism(f107); <span class="comment">% get fism value corresponding to F10.7</span>
+doy = (1/24:1/24:365)';
+doy = reshape(doy,24,[]);
+[fof2,nmf2] = call_nmf2(station_name,doy,fism,ap3);
+figure(<span class="string">'Position'</span>,[3135 850 725 309]);
+contourf(nmf2,30,<span class="string">'LineStyle'</span>,<span class="string">'none'</span>)
+colormap <span class="string">jet</span>
+colorbar
+xlabel(<span class="string">'DOY'</span>); ylabel(<span class="string">'UT'</span>);
+set(gca,<span class="string">'FontSize'</span>,14,<span class="string">'ytick'</span>,0:3:24,<span class="string">'tickdir'</span>,<span class="string">'out'</span>);
+title([<span class="string">'Seasonal variation of NmF2 over '</span>,station_name,<span class="string">' at F10.7='</span> num2str(f107) <span class="string">' &amp; ap3='</span> num2str(ap3)]);
+<span class="keyword">if</span> Save_Figure == 1
+    plotname=[station_name,<span class="string">'_f107_'</span>,num2str(f107)];
+    saveas(gcf, plotname, <span class="string">'png'</span>)
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="examples_03.png" alt=""> <h2 id="5">Example 4</h2><p>Plot NmF2 over JICA at fixed LT=15 during the Solar Cycle 23</p><pre class="codeinput">station_name=<span class="string">'JICA'</span>;
+lon = -76.8;
+LT = 15;
+UT = round(LT-lon/15); <span class="comment">% nearest UT hour</span>
+sdate = datetime([1997 1 1 UT 0 0]);
+edate = datetime([2009 12 31 UT 0 0]);
+time = (sdate:days(1):edate)';
+[fof2,nmf2,geoind] = call_nmf2(station_name,time);
+figure(<span class="string">'Position'</span>,[3135 850 725 309]);
+plot(time,geoind.f107,<span class="string">'color'</span>,[0.8 0.3 0])
+xlabel(<span class="string">'Year'</span>); ylabel(<span class="string">'F10.7'</span>)
+yyaxis <span class="string">right</span>
+plot(time,nmf2,<span class="string">'-k'</span>,<span class="string">'LineWidth'</span>,2);
+ylabel(<span class="string">'NmF2'</span>)
+legend({<span class="string">'F10.7'</span>,<span class="string">'NmF2'</span>})
+title([<span class="string">'NmF2 over '</span> station_name <span class="string">' during the Solar Cycle 23 at fixed LT='</span> num2str(LT)])
+set(gca,<span class="string">'FontSize'</span>,14,<span class="string">'YColor'</span>,[0.8 0.3 0])
+</pre><img vspace="5" hspace="5" src="examples_04.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% examples
+
+%% Example 1 
+% Reproduce 2011 NmF2 over JICA
+station_name='JICA';
+sdate = datetime([2011 1 1 0 0 0]);
+edate = datetime([2011 12 31 23 0 0]);
+time = (sdate:hours(1):edate)';
+time = reshape(time,24,[]);
+[fof2,nmf2] = call_nmf2(station_name,time);
+figure('Position',[3135 850 725 309]);
+contourf(nmf2,30,'LineStyle','none')
+colormap jet 
+colorbar
+clim([.1 1.9]*10^12)
+xlabel('DOY'); ylabel('UT');
+title([station_name,' NmF2, ',char(sdate,'dd-MMM-yyyy'),' to ',char(edate,'dd-MMM-yyyy')])
+set(gca,'FontSize',14,'ytick',0:3:24,'tickdir','out');
+
+%% Example 2
+% Reproduce 2021 NmF2 over GUAM.
+% Also plot the f10.7 index and save model output as ASCII file
+% Other indices can also be plotted from geoind structure
+station_name='GUAM';
+Save_Output=1;
+out_dir = 'output_ASCII';
+out_name = [station_name '.txt'];
+sdate = datetime([2021 1 1 0 0 0]);
+edate = datetime([2021 12 31 23 0 0]);
+time = (sdate:hours(1):edate)';
+time = reshape(time,24,[]);
+[fof2,nmf2,geoind] = call_nmf2(station_name,time);
+figure('Position',[3135 850 725 309]);
+contourf(nmf2,30,'LineStyle','none')
+colormap jet
+colorbar
+clim([0 15]*10^11)
+xlabel('DOY'); ylabel('UT');
+set(gca,'FontSize',14,'ytick',0:3:24,'tickdir','out');
+yyaxis right
+plot(geoind.f107(1,:),'-k');
+ylabel('F10.7 (sfu)')
+title([station_name,' NmF2, ',char(sdate,'dd-MMM-yyyy'),' to ',char(edate,'dd-MMM-yyyy')])
+set(gca,'FontSize',14)
+if Save_Output
+    fname = [out_dir filesep out_name];
+    data_out = table;
+    data_out.Year = time.Year(:);
+    data_out.Month = time.Month(:);
+    data_out.Day = time.Day(:);
+    data_out.Hour = time.Hour(:);
+    data_out.('NmF2x10^11') = round(nmf2(:)/10^11,3);
+    data_out.foF2 = round(fof2(:),2);
+    data_out.F107 = geoind.f107(:);
+    data_out.FISM2 = round(geoind.fism2(:),4);
+    data_out.Ap3 = geoind.ap3(:);
+    if ~exist(out_dir,'dir')
+        mkdir(out_dir)
+    end
+    writetable(data_out,fname,'Delimiter','tab')
+end
+
+%% Example 3
+% Plot seasonal variation over JICA at fixed solar and geomagnetic activity
+% if needed, save figure as PNG file 
+station_name='JICA';
+f107 = 70;
+ap3 = 6;
+Save_Figure = 1;
+%
+fism = f1072fism(f107); % get fism value corresponding to F10.7
+doy = (1/24:1/24:365)';
+doy = reshape(doy,24,[]);
+[fof2,nmf2] = call_nmf2(station_name,doy,fism,ap3);
+figure('Position',[3135 850 725 309]);
+contourf(nmf2,30,'LineStyle','none')
+colormap jet
+colorbar
+xlabel('DOY'); ylabel('UT');
+set(gca,'FontSize',14,'ytick',0:3:24,'tickdir','out');
+title(['Seasonal variation of NmF2 over ',station_name,' at F10.7=' num2str(f107) ' & ap3=' num2str(ap3)]);
+if Save_Figure == 1
+    plotname=[station_name,'_f107_',num2str(f107)];
+    saveas(gcf, plotname, 'png')
+end
+
+
+%% Example 4
+% Plot NmF2 over JICA at fixed LT=15 during the Solar Cycle 23
+station_name='JICA';
+lon = -76.8;
+LT = 15;
+UT = round(LT-lon/15); % nearest UT hour
+sdate = datetime([1997 1 1 UT 0 0]);
+edate = datetime([2009 12 31 UT 0 0]);
+time = (sdate:days(1):edate)';
+[fof2,nmf2,geoind] = call_nmf2(station_name,time);
+figure('Position',[3135 850 725 309]);
+plot(time,geoind.f107,'color',[0.8 0.3 0])
+xlabel('Year'); ylabel('F10.7')
+yyaxis right
+plot(time,nmf2,'-k','LineWidth',2);
+ylabel('NmF2')
+legend({'F10.7','NmF2'})
+title(['NmF2 over ' station_name ' during the Solar Cycle 23 at fixed LT=' num2str(LT)])
+set(gca,'FontSize',14,'YColor',[0.8 0.3 0])
+
+##### SOURCE END #####
+--></body></html>
