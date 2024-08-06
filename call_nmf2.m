@@ -22,8 +22,8 @@ function [fof2,nmf2,geoind] = call_nmf2(station,time,fism,ap3)
 %          ap3: Vector of ap3 index with lags = [0,3,6,9,12,24,48,72]. A
 %               scalar value can also be passed
 % outputs
-%      fof2 : Critical frequency if F2 layer
-%      nmf2 : NmF2 in log10( 1/M^3 ). Same size as input time.
+%      fof2 : Critical frequency of F2 layer
+%      nmf2 : NmF2 in 1/m^3. Same size as the input time array.
 %    geoind : Structure with following geophysiical indices fields [optional]
 %             fism2: fism2 index values
 %              f107: F10.7 (sfu) index values
